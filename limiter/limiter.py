@@ -16,17 +16,28 @@
 class Limiter(object):
     def __init__(self, config, api):
         self.api = api
+        # message length limit
         self.limit = config.get("limit", 1000)
-        self.protected_rooms = config.get("protected_rooms", [])
+        # list of protected rooms. Omit to protect all rooms
+        self.protected_rooms = config.get("protected_rooms")
 
     # --- spam checker interface below here ---
 
     def check_event_for_spam(self, event):
         body = event.get("content", {}).get("body", "")
         room_id = event.get("room_id", "")
-        if room_id in self.protected_rooms and len(body) > self.limit:
+        if len <= self.limit:
+            # below the limit, not spam
+            return False  # not spam (as far as we're concerned)
+
+        if self.protected_rooms is not None and room_id not in self.protected_rooms:
+            # not in a protected room
+            return False
+
+        if
+            and len(body) > self.limit:
             return True # It's over the limit
-        return False  # not spam (as far as we're concerned)
+
 
     def user_may_invite(self, inviter_user_id, invitee_user_id, room_id):
         return True  # allowed (as far as we're concerned)
