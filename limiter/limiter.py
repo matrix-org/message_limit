@@ -34,9 +34,7 @@ class Limiter(object):
             # not in a protected room
             return False
 
-        if
-            and len(body) > self.limit:
-            return True # It's over the limit
+        return True # over the limit and in a protected room
 
 
     def user_may_invite(self, inviter_user_id, invitee_user_id, room_id):
