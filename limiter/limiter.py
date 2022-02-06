@@ -26,7 +26,7 @@ class Limiter(object):
     def check_event_for_spam(self, event):
         body = event.get("content", {}).get("body", "")
         room_id = event.get("room_id", "")
-        if len <= self.limit:
+        if len(body) <= self.limit:
             # below the limit, not spam
             return False  # not spam (as far as we're concerned)
 
