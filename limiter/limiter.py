@@ -41,7 +41,7 @@ class Limiter(object):
         return True  # allowed (as far as we're concerned)
 
     def check_username_for_spam(self, user_profile):
-        return True
+        return False # not spam
 
     def user_may_create_room(self, user_id):
         return True  # allowed
